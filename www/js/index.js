@@ -22,9 +22,13 @@ var options = {
     env: 'AutodeskProduction',
     getAccessToken: getForgeToken
 }
+//Rhino
 
-var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6Y2FydGVybWFyaW5vMnB2cTFnZjY2dHA3bW9xYWd5NHhqdGZuYWxlN3h6eGgvVXJiYW5Ib3VzZS0yMDE1LnJ2dA';
+var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6Y2FydGVybWFyaW5vMnB2cTFnZjY2dHA3bW9xYWd5NHhqdGZuYWxlN3h6eGgvc3RhbnphX2RlbF9tdXJvX2xldHRvLjNkbQ';
 
+// Revit House
+
+// var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6Y2FydGVybWFyaW5vMnB2cTFnZjY2dHA3bW9xYWd5NHhqdGZuYWxlN3h6eGgvVXJiYW5Ib3VzZS0yMDE1LnJ2dA';
 Autodesk.Viewing.Initializer(options, function onInitialized() {
     Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
 });
@@ -37,8 +41,7 @@ function onDocumentLoadSuccess(doc) {
 
     // A document contains references to 3D and 2D viewables.
     var viewable = Autodesk.Viewing.Document.getSubItemsWithProperties(doc.getRootItem(), {
-        'type': 'geometry',
-        'role': '3d'
+        'type': 'geometry'
     }, true);
     if (viewable.length === 0) {
         console.error('Document contains no viewables.');
@@ -46,7 +49,7 @@ function onDocumentLoadSuccess(doc) {
     }
 
     // Choose any of the available viewable
-    var initialViewable = viewable[8]; // You can check for other available views in your model,
+    var initialViewable = viewable[0]; // You can check for other available views in your model,
     var svfUrl = doc.getViewablePath(initialViewable);
     var modelOptions = {
         sharedPropertyDbPath: doc.getPropertyDbPath()
